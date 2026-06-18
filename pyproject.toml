@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gastronomyml-compiler"
+version = "0.1.0"
+description = "Compiler for GastronomyML — a natural-language culinary modeling language with flavor-graph IR"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Andrew H. Bond" }]
+keywords = ["gastronomy", "flavor", "compiler", "ir", "culinary", "nlp"]
+dependencies = [
+    "pydantic>=2.0",
+    "typer>=0.9",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+llm = ["openai>=1.0"]
+dev = ["pytest>=7.4", "pytest-cov>=4.0"]
+
+[project.scripts]
+gastronomy-compile = "gastronomyml_compiler.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gastronomyml_compiler"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

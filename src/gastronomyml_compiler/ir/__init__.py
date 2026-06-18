@@ -1,0 +1,33 @@
+from .schemas import (
+    GastronomyIR,
+    Ingredient,
+    CookingTechnique,
+    Recipe,
+    PairingRule,
+    FlavorFact,
+    FlavorVector,
+    DimensionScore,
+    HarmonyVerdict,
+    ProjectionResult,
+    Segment,
+    Document,
+    AuditRecord,
+    FLAVOR_DIMENSIONS,
+)
+
+__all__ = [
+    "GastronomyIR",
+    "Ingredient",
+    "CookingTechnique",
+    "Recipe",
+    "PairingRule",
+    "FlavorFact",
+    "FlavorVector",
+    "DimensionScore",
+    "HarmonyVerdict",
+    "ProjectionResult",
+    "Segment",
+    "Document",
+    "AuditRecord",
+    "FLAVOR_DIMENSIONS",
+]
