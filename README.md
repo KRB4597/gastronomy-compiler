@@ -116,7 +116,6 @@ gastronomy-compile export-schema-org duck_confit.ir.json --out duck_confit.jsonl
 |------|------|-------------|
 | `--extractor rule` | Tier 2 | Deterministic pattern library (default) |
 | `--extractor mock` | Tier 0 | Deterministic fixture for testing |
-| `--extractor llm` | Tier 3 | OpenAI-compatible model (requires `[llm]` extra) |
 
 ---
 

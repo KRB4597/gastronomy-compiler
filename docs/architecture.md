@@ -262,7 +262,7 @@ The key inter-module dependencies:
 `AuditRecord` carries:
 
 - `passes` — per-pass `PassRecord` list (pass number, name, status, optional note)
-- `extractor_tier` — the tier used (`rule`, `mock`, `llm`)
+- `extractor_tier` — the tier used (`rule`, `mock`)
 - `active_projections` — list of projection IDs that were run
 - `graph_hash` — SHA-256 of the canonical `FlavorGraph`
 - `input_sha256` — SHA-256 of the raw input text
