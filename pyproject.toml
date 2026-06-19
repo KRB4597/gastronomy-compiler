@@ -18,6 +18,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Also run: python -m spacy download en_core_web_sm
+nlp = ["spacy>=3.7"]
 dev = ["pytest>=7.4", "pytest-cov>=4.0"]
 
 [project.scripts]
