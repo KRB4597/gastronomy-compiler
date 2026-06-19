@@ -230,3 +230,7 @@ def _print_summary(ir: GastronomyIR) -> None:
 
     if ir.cross_projection_disagreement:
         console.print("[yellow]⚠ Projections disagree on polarity — see cross_projection_disagreement in IR.[/yellow]")
+
+
+if __name__ == "__main__":
+    app()

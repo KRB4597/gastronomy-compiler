@@ -102,18 +102,37 @@ class CulturalHarmonyProjection(BaseProjection):
         ing_names = {i.name for i in ir.ingredients}
         ing_groups = {i.food_group for i in ir.ingredients}
 
-        # Detect if dish spans multiple traditions (fusion)
-        matched_cuisines = []
+        # Detect if dish spans multiple traditions (fusion).
+        #
+        # A shared/foundational pair (e.g. ("tomato","basil") appears in both the
+        # italian and mediterranean norm sets) is NOT evidence of cross-cultural
+        # blending — every cuisine that lists it would "match", mislabeling a pure
+        # single-cuisine dish as fusion.  So fusion must rest on cuisine-DISTINCTIVE
+        # pairs: pairs that belong to exactly one tradition's norm set.
+        pair_owner_count: dict[tuple[str, str], int] = {}
+        for norms in _NORMS.values():
+            for a, b, _, _ in norms["positive"]:
+                pair_owner_count[(a, b)] = pair_owner_count.get((a, b), 0) + 1
+
+        # Per cuisine, count matched pairs that are distinctive to it.
+        matched_cuisines = []  # (cuisine, distinctive_hits)
         for c, norms in _NORMS.items():
-            hits = sum(
+            distinctive_hits = sum(
                 1 for a, b, _, _ in norms["positive"]
-                if a in ing_names and b in ing_names
+                if a in ing_names and b in ing_names and pair_owner_count[(a, b)] == 1
             )
-            if hits > 0:
-                matched_cuisines.append((c, hits))
+            if distinctive_hits > 0:
+                matched_cuisines.append((c, distinctive_hits))
 
         matched_cuisines.sort(key=lambda x: -x[1])
-        is_fusion = len(matched_cuisines) > 1
+        # Genuine fusion: at least two traditions each carry distinctive evidence,
+        # and the runner-up's evidence is comparable to the leader's (a dish that is
+        # overwhelmingly one cuisine with a single stray distinctive pair from
+        # another is not fusion).
+        is_fusion = (
+            len(matched_cuisines) > 1
+            and matched_cuisines[1][1] >= matched_cuisines[0][1] * 0.5
+        )
 
         primary_cuisine = cuisine
         if not primary_cuisine and matched_cuisines:
