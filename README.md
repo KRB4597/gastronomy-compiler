@@ -163,6 +163,34 @@ gastronomy-compile export-schema-org duck_confit.ir.json --out duck_confit.jsonl
 
 ---
 
+## References
+
+Methods build on published flavor science and food-pairing research:
+
+- Ahn, Y.-Y., Ahnert, S. E., Bagrow, J. P., & Barabási, A.-L. (2011). Flavor network and the principles of food pairing. *Scientific Reports,* 1, 196. — basis of `flavor_similarity` (shared-compound affinity).
+- Park, D., Kim, K., Park, Y., Shin, J., & Kang, J. (2021). FlavorGraph: a large-scale food-chemical graph for generating food representations and recommending food pairings. *Scientific Reports,* 11, 931.
+- Garg, N., Sethia, A., Nagpal, A., Iyer, A., & Bagler, G. (2024). FlavorDB2: an updated database of flavor molecules. *arXiv:2205.05451.*
+- Marin, J., et al. (2019). Recipe1M+: a dataset for learning cross-modal embeddings for cooking recipes and food images. *IEEE TPAMI,* 43(1), 187–203.
+
+Datasets for empirical validation: **FlavorGraph / FlavorDB** + the Ahn et al. flavor network give compound-level ground truth for `flavor_similarity`; **Recipe1M+** and graded-recipe corpora (Epicurious, food.com) with user star ratings allow correlating the harmony verdict against human preference. Full BibTeX bibliography in [`paper/paper.bib`](paper/paper.bib).
+
+## Acknowledgements
+
+This compiler adapts the architecture of the **[ErisML Compiler](https://github.com/ahb-sjsu/erisml-compiler)** (Bond, 2025) to the culinary domain — the IR-graph substrate, canonical hashing, pluggable projections, and non-aggregating cross-projection disagreement model all originate there (see the ErisML → GastronomyML analog table above).
+
+## Citation
+
+```bibtex
+@misc{Baley2026gastronomy,
+  author = {Baley, Kim R. and Bond, Andrew H.},
+  title  = {gastronomy-compiler: a structure-preserving flavor intermediate
+            representation with pluggable culinary projection analysers},
+  year   = {2026},
+  url    = {https://github.com/KRB4597/gastronomy-compiler},
+  note   = {Adapts the ErisML Compiler architecture (Bond, 2025) to the culinary domain}
+}
+```
+
 ## Tests
 
 ```bash
