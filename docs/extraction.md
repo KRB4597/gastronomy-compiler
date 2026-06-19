@@ -12,7 +12,6 @@ The compiler has three extraction tiers. Passes 2–6 of the 13-pass pipeline ar
 class CompilerTier(str, Enum):
     STRUCTURED = "structured"   # (future) fully-parsed structured input
     RULE       = "rule"         # production default — rule-based NLP
-    LLM        = "llm"          # open-vocabulary LLM extraction (scaffolded)
     MOCK       = "mock"         # deterministic test fixture
 ```
 
@@ -143,18 +142,6 @@ In addition to known pairs, the extractor emits `FlavorFact`s for structural obs
 - `ACID_FAT_BALANCE`: when sour and fat dimensions are both `present` or higher, emit a positive balance fact.
 - `BITTERNESS_MITIGATION`: when bitter dimension is `present` and fat dimension is `dominant`, emit a mitigation fact.
 - `DOMINANCE`: when a single dimension scores `dominant` (≥ 0.65) with no complementary dimension above `present`, emit a dominance fact.
-
----
-
-## Tier 3: LLM extractor (scaffolded)
-
-**File**: `annotation/llm_extractor.py` (scaffolded)
-**Selected by**: `--extractor llm`
-**Requires**: `pip install gastronomyml-compiler[llm]` (adds `openai≥1.0`)
-
-The LLM extractor sends the text to an OpenAI-compatible chat endpoint and parses the structured JSON response back into `ExtractorResult`. It is designed for open-vocabulary dish descriptions where the rule extractor's 80-entry library would have low recall.
-
-**Current status**: the extractor class and interface are scaffolded. A caller must supply an OpenAI-compatible endpoint via the `OPENAI_API_KEY` environment variable (and optionally `OPENAI_BASE_URL` for a self-hosted endpoint). The prompt and structured-output schema are implemented; end-to-end integration tests are pending.
 
 ---
 

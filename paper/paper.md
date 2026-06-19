@@ -123,8 +123,7 @@ culinary context, and flavor facts through one of three tiered
 extractors: a deterministic mock extractor for testing; a rule-based
 extractor (Tier 2, the default production tier) that matches against an
 80-entry ingredient flavor-profile library and 25 cooking-technique
-transformation rules; or an LLM extractor (Tier 3) for open-vocabulary
-descriptions. Pass 7 canonicalises ingredient names against an alias
+transformation rules. Pass 7 canonicalises ingredient names against an alias
 registry (e.g., *parmigiano-reggiano* → *parmesan*). Pass 7.5 promotes
 the flat extractor output into a typed `FlavorGraph`. Pass 8 runs the
 FM-DAG over the populated IR to produce the aggregate `FlavorVector`.
@@ -233,9 +232,7 @@ gastronomy-compile compile examples/duck_confit.txt \
 The rule extractor's ingredient library covers approximately 80 named
 ingredients. Novel, hyphenated, or highly regional ingredient names
 outside this vocabulary are silently dropped, reducing extraction
-recall. The LLM extractor tier (Tier 3) is scaffolded but not
-integrated with a specific model checkpoint; a caller must supply an
-OpenAI-compatible endpoint. Cultural norm sets are hand-curated from
+recall. Cultural norm sets are hand-curated from
 classical sources and do not capture regional variation within a
 tradition, contemporary fusion norms, or molecular gastronomy
 techniques. The nutritional projection uses food-group heuristics

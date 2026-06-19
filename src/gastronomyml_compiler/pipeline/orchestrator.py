@@ -59,7 +59,7 @@ def compile_document(
     source:
         File path or raw text of the dish description.
     extractor:
-        Extraction tier — ``rule`` (default), ``mock``, or ``llm``.
+        Extraction tier — ``rule`` (default) or ``mock``.
     projections:
         List of projection IDs to run at compile time.  Pass ``None`` to run
         all four.  Available: ``flavor_similarity``, ``flavor_contrast``,
