@@ -92,8 +92,10 @@ def compile_document(
     segments = _pass("segmentation", segment_text, text)
 
     # ── Passes 2–6: Extraction ───────────────────────────────────────────
+    from ..annotation.nlp_extractor import NlpExtractor
     _extractor = {
         CompilerTier.RULE: RuleExtractor,
+        CompilerTier.NLP: NlpExtractor,
         CompilerTier.MOCK: MockExtractor,
     }.get(extractor, RuleExtractor)()
 

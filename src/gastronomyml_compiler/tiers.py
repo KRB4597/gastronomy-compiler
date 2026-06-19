@@ -4,6 +4,7 @@ from enum import Enum
 class CompilerTier(str, Enum):
     STRUCTURED = "structured"   # Tier 1 — pre-parsed JSON input
     RULE = "rule"               # Tier 2 — deterministic pattern library (default)
+    NLP = "nlp"                 # Tier 2.5 — spaCy: negation-aware, lemma matching
     MOCK = "mock"               # Deterministic test fixture
 
 

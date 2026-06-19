@@ -73,3 +73,34 @@ library are scored (others are reported as skipped).
 | `run_recipes.py`        | Harmony verdict vs human ratings.                   |
 | `run_flavor_pairing.py` | flavor_similarity vs shared compounds.              |
 | `sample_data/`          | Small bundled CSVs so everything runs immediately.   |
+
+## Extractor bake-off — which NLP tool to use
+
+`run_recipes`/`run_flavor_pairing` evaluate downstream outputs. The *ingredient
+extractor* itself is a separate question: the rule extractor uses `\bword\b`
+regex, which can't tell "no butter" from "butter" and misses plurals like
+"tomatoes". `extractor_eval.py` compares three contenders (`contenders.py`) —
+`rule`, `spacy`, and `embedding` (sentence-transformers) — on a gold corpus
+grouped by phenomenon.
+
+```bash
+python -m benchmarks.extractor_eval
+```
+
+Result on the bundled corpus:
+
+```
+category           rule      spacy  embedding
+normal             100%       100%       100%
+negation            43%       100%        43%
+inflection           0%       100%       100%
+synonym              0%         0%       100%
+-----------------------------------------------
+ALL                 52%        90%        81%
+```
+
+**spaCy wins (90%)** — it fixes negation and plurals; embeddings only lead on
+out-of-vocabulary synonyms (and still fail negation, since embeddings ignore
+"not"/"no"). This is why the `nlp` extractor tier (`--extractor nlp`,
+`pip install -e ".[nlp]"` + `python -m spacy download en_core_web_sm`) is
+spaCy-based. A spaCy+embedding hybrid would add synonym recall next.
